@@ -17,56 +17,56 @@ const Course = () => {
   const weeks = [
     {
       week: 1,
-      title: "Misingi ya Python na Usanidi wa Mazingira",
+      title: "Python Basics & Environment Setup",
       status: "available",
       videoUrl: "https://www.youtube.com/embed/kqtD5dpn9C8",
-      description: "Jifunze misingi ya Python na kusanidi mazingira ya utengenezaji",
+      description: "Learn Python fundamentals and set up your development environment",
       materials: [
-        "Mwongozo wa Usanikishaji wa Python",
-        "Maelekezo ya Usanidi wa VS Code", 
-        "Mradi wa Kuanza wa Ufuatiliaji wa Mazao ya Kilimo"
+        "Python Installation Guide",
+        "VS Code Setup Instructions", 
+        "Farm Produce Tracker Starter Project"
       ],
       isCompleted: false,
       progress: 0
     },
     {
       week: 2,
-      title: "Muundo wa Udhibiti",
+      title: "Control Structures",
       status: "locked",
       videoUrl: "https://www.youtube.com/embed/PqFKRqpHrjw",
-      description: "Shinda masharti, vitanzi, na kazi za msingi",
+      description: "Master conditionals, loops, and basic functions",
       materials: [
-        "Mazoezi ya Mtiririko wa Udhibiti",
-        "Mwongozo wa Kutatua Hitilafu",
-        "Nambari ya Ufuatiliaji wa Kilimo Iliyoboreshwa"
+        "Control Flow Exercises",
+        "Debugging Guide",
+        "Enhanced Farm Tracker Project"
       ],
       isCompleted: false,
       progress: 0
     },
     {
       week: 3,
-      title: "Miundo ya Data",
+      title: "Data Structures",
       status: "locked",
       videoUrl: "https://www.youtube.com/embed/W8KRzm-HUcc",
-      description: "Fanya kazi na orodha, kamusi, na kushughulikia makosa",
+      description: "Work with lists, dictionaries, and error handling",
       materials: [
-        "Mifano ya Muundo wa Data",
-        "Mazoea Bora ya Kushughulikia Makosa",
-        "Mradi wa Kikokotoo cha Bei"
+        "Data Structure Examples",
+        "Error Handling Best Practices",
+        "Price Calculator Project"
       ],
       isCompleted: false,
       progress: 0
     },
     {
       week: 4,
-      title: "Git na GitHub",
+      title: "Git & GitHub",
       status: "locked",
       videoUrl: "https://www.youtube.com/embed/RGOj5yH7evk",
-      description: "Udhibiti wa toleo na utengenezaji wa ushirikiano",
+      description: "Version control and collaborative development",
       materials: [
-        "Karatasi ya Ghafla ya Amri za Git",
-        "Mwongozo wa Mtiririko wa Kazi za GitHub",
-        "Mfumo wa Usanidi wa Hifadhi"
+        "Git Commands Cheat Sheet",
+        "GitHub Workflow Guide",
+        "Repository Setup System"
       ],
       isCompleted: false,
       progress: 0
@@ -75,14 +75,14 @@ const Course = () => {
 
   const upcomingMeetings = [
     {
-      title: "Kipindi cha Swali na Jibu cha Wiki 1",
-      date: "Juni 18, 2025",
+      title: "Week 1 Q&A Session",
+      date: "June 18, 2025",
       time: "6:00 PM EAT",
       meetLink: "https://meet.google.com/abc-defg-hij"
     },
     {
-      title: "Kipindi cha Ukaguzi wa Nambari", 
-      date: "Juni 20, 2025",
+      title: "Code Review Session", 
+      date: "June 20, 2025",
       time: "5:30 PM EAT",
       meetLink: "https://meet.google.com/xyz-uvwx-yz"
     }
@@ -103,15 +103,15 @@ const Course = () => {
             <div className="flex items-center space-x-4">
               <Link to="/" className="flex items-center space-x-2 text-gray-600 hover:text-blue-600">
                 <ArrowLeft className="h-4 w-4" />
-                <span>Rudi Nyumbani</span>
+                <span>Back to Home</span>
               </Link>
               <h1 className="text-2xl font-bold text-blue-600">ISN Academy</h1>
             </div>
             <div className="flex items-center space-x-4">
               <Link to="/playground" className="text-gray-600 hover:text-blue-600 transition-colors">
-                Eneo la Kuchezea la AI
+                AI Playground
               </Link>
-              <Button variant="outline">Wasifu Wangu</Button>
+              <Button variant="outline">My Profile</Button>
             </div>
           </div>
         </div>
@@ -120,19 +120,19 @@ const Course = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Course Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Kozi ya Msingi ya Utengenezaji wa Programu</h1>
-          <p className="text-gray-600 mb-4">Shinda Python, SQL, na GitHub kwa muktadha wa Afrika Mashariki</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Basic Software Development Course</h1>
+          <p className="text-gray-600 mb-4">Master Python, SQL, and GitHub in East African context</p>
           
           <div className="bg-white rounded-lg p-6 shadow-sm">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold">Maendeleo Yako</h3>
-              <Badge variant="secondary">{completedLessons}/{totalLessons} iliyokamilishwa</Badge>
+              <h3 className="text-lg font-semibold">Your Progress</h3>
+              <Badge variant="secondary">{completedLessons}/{totalLessons} completed</Badge>
             </div>
             <Progress value={progress} className="mb-2" />
-            <p className="text-sm text-gray-600">{progress.toFixed(0)}% imekamilika</p>
+            <p className="text-sm text-gray-600">{progress.toFixed(0)}% complete</p>
             {progress === 0 && (
               <p className="text-sm text-blue-600 mt-2">
-                🎯 Karibu! Anza na somo la kwanza hapo chini
+                🎯 Welcome! Start with the first lesson below
               </p>
             )}
           </div>
@@ -143,9 +143,9 @@ const Course = () => {
           <div className="lg:col-span-2">
             <Tabs defaultValue="lessons" className="space-y-6">
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="lessons">Masomo</TabsTrigger>
-                <TabsTrigger value="exercises">Mazoezi</TabsTrigger>
-                <TabsTrigger value="projects">Miradi</TabsTrigger>
+                <TabsTrigger value="lessons">Lessons</TabsTrigger>
+                <TabsTrigger value="exercises">Exercises</TabsTrigger>
+                <TabsTrigger value="projects">Projects</TabsTrigger>
               </TabsList>
 
               <TabsContent value="lessons" className="space-y-6">
@@ -158,24 +158,24 @@ const Course = () => {
                       <div className="flex items-center justify-between">
                         <div>
                           <CardTitle className="flex items-center space-x-2">
-                            <span>Wiki {week.week}: {week.title}</span>
+                            <span>Week {week.week}: {week.title}</span>
                             {week.isCompleted && (
-                              <Badge className="bg-green-100 text-green-800">Imekamilishwa</Badge>
+                              <Badge className="bg-green-100 text-green-800">Completed</Badge>
                             )}
                             {week.status === 'available' && !week.isCompleted && (
-                              <Badge className="bg-blue-100 text-blue-800">Inapatikana</Badge>
+                              <Badge className="bg-blue-100 text-blue-800">Available</Badge>
                             )}
                             {week.status === 'locked' && (
                               <Badge variant="secondary" className="flex items-center space-x-1">
                                 <Lock className="h-3 w-3" />
-                                <span>Imefungwa</span>
+                                <span>Locked</span>
                               </Badge>
                             )}
                           </CardTitle>
                           <CardDescription>{week.description}</CardDescription>
                           <div className="mt-2">
                             <Progress value={week.progress} className="w-32" />
-                            <span className="text-xs text-gray-500">{week.progress}% ya somo</span>
+                            <span className="text-xs text-gray-500">{week.progress}% of lesson</span>
                           </div>
                         </div>
                         {week.status === 'available' && (
@@ -186,7 +186,7 @@ const Course = () => {
                               onClick={() => handleLessonComplete(index)}
                             >
                               <PlayCircle className="h-4 w-4 mr-2" />
-                              {week.isCompleted ? 'Rudia' : 'Anza'}
+                              {week.isCompleted ? 'Review' : 'Start'}
                             </Button>
                             {week.isCompleted && (
                               <Button size="sm" variant="ghost">
@@ -202,13 +202,13 @@ const Course = () => {
                         <div className="aspect-video bg-gray-100 rounded-lg mb-4">
                           <iframe
                             src={week.videoUrl}
-                            title={`Video ya Wiki ${week.week}`}
+                            title={`Week ${week.week} Video`}
                             className="w-full h-full rounded-lg"
                             allowFullScreen
                           />
                         </div>
                         <div>
-                          <h4 className="font-semibold mb-2">Nyenzo za Kozi:</h4>
+                          <h4 className="font-semibold mb-2">Course Materials:</h4>
                           <ul className="space-y-1">
                             {week.materials.map((material, index) => (
                               <li key={index} className="flex items-center space-x-2">
@@ -229,31 +229,31 @@ const Course = () => {
               <TabsContent value="exercises" className="space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Mazoezi ya Vitendo</CardTitle>
-                    <CardDescription>Mazoezi ya coding ya vitendo kuimarisha ujifunzaji wako</CardDescription>
+                    <CardTitle>Practical Exercises</CardTitle>
+                    <CardDescription>Hands-on coding exercises to reinforce your learning</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
                       <div className="flex items-center justify-between p-4 border rounded-lg">
                         <div>
-                          <h4 className="font-semibold">Kikokotoo cha Mazao ya Kilimo</h4>
-                          <p className="text-sm text-gray-600">Unda kikokotoo cha bei za mazao</p>
+                          <h4 className="font-semibold">Farm Produce Calculator</h4>
+                          <p className="text-sm text-gray-600">Build a crop price calculator</p>
                         </div>
                         <Link to="/playground">
                           <Button size="sm">
                             <Code className="h-4 w-4 mr-2" />
-                            Anza Coding
+                            Start Coding
                           </Button>
                         </Link>
                       </div>
                       <div className="flex items-center justify-between p-4 border rounded-lg opacity-50">
                         <div>
-                          <h4 className="font-semibold">Mazoezi ya Muundo wa Data</h4>
-                          <p className="text-sm text-gray-600">Fanya kazi na orodha na kamusi</p>
+                          <h4 className="font-semibold">Data Structure Exercises</h4>
+                          <p className="text-sm text-gray-600">Work with lists and dictionaries</p>
                         </div>
                         <Button size="sm" variant="outline" disabled>
                           <Lock className="h-4 w-4 mr-2" />
-                          Imefungwa
+                          Locked
                         </Button>
                       </div>
                     </div>
@@ -264,37 +264,37 @@ const Course = () => {
               <TabsContent value="projects" className="space-y-6">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Miradi ya Kozi</CardTitle>
-                    <CardDescription>Jenga programu za ulimwengu halisi zenye muktadha wa Afrika Mashariki</CardDescription>
+                    <CardTitle>Course Projects</CardTitle>
+                    <CardDescription>Build real-world applications with East African context</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
                       <div className="p-4 border rounded-lg">
-                        <h4 className="font-semibold mb-2">Ufuatiliaji wa Mazao ya Kilimo</h4>
+                        <h4 className="font-semibold mb-2">Farm Produce Tracker</h4>
                         <p className="text-sm text-gray-600 mb-4">
-                          Fuatilia hifadhi ya mazao, bei, na thamani za soko kwa biashara za kilimo za mitaa
+                          Track crop inventory, prices, and market values for local farming businesses
                         </p>
                         <div className="flex items-center space-x-2">
                           <Button size="sm" disabled={completedLessons === 0}>
                             <Github className="h-4 w-4 mr-2" />
-                            {completedLessons === 0 ? 'Anza Somo la Kwanza' : 'Angalia kwenye GitHub'}
+                            {completedLessons === 0 ? 'Start First Lesson' : 'View on GitHub'}
                           </Button>
                           <Badge className={completedLessons > 0 ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-600"}>
-                            {completedLessons > 0 ? 'Inaendelea' : 'Haijanza'}
+                            {completedLessons > 0 ? 'In Progress' : 'Not Started'}
                           </Badge>
                         </div>
                       </div>
                       <div className="p-4 border rounded-lg opacity-50">
-                        <h4 className="font-semibold mb-2">Rekoda ya Fedha za Simu</h4>
+                        <h4 className="font-semibold mb-2">Mobile Money Logger</h4>
                         <p className="text-sm text-gray-600 mb-4">
-                          Mfumo wa ufuatiliaji wa miamala ulioongozwa na M-Pesa na Airtel Money
+                          Transaction tracking system inspired by M-Pesa and Airtel Money
                         </p>
                         <div className="flex items-center space-x-2">
                           <Button size="sm" variant="outline" disabled>
                             <Lock className="h-4 w-4 mr-2" />
-                            Inakuja Hivi Karibuni
+                            Coming Soon
                           </Button>
-                          <Badge variant="secondary">Imefungwa</Badge>
+                          <Badge variant="secondary">Locked</Badge>
                         </div>
                       </div>
                     </div>
@@ -311,20 +311,20 @@ const Course = () => {
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <Calendar className="h-5 w-5" />
-                  <span>Vikao Vijavyo</span>
+                  <span>Upcoming Meetings</span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {upcomingMeetings.map((meeting, index) => (
                   <div key={index} className="p-3 border rounded-lg">
                     <h4 className="font-semibold text-sm">{meeting.title}</h4>
-                    <p className="text-xs text-gray-600">{meeting.date} saa {meeting.time}</p>
+                    <p className="text-xs text-gray-600">{meeting.date} at {meeting.time}</p>
                     <Button 
                       size="sm" 
                       className="mt-2 w-full"
                       onClick={() => window.open(meeting.meetLink, '_blank')}
                     >
-                      Jiunge na Mkutano
+                      Join Meeting
                     </Button>
                   </div>
                 ))}
@@ -334,22 +334,22 @@ const Course = () => {
             {/* Quick Links */}
             <Card>
               <CardHeader>
-                <CardTitle>Viungo vya Haraka</CardTitle>
+                <CardTitle>Quick Links</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
                 <Link to="/playground">
                   <Button variant="outline" className="w-full justify-start">
                     <Code className="h-4 w-4 mr-2" />
-                    Eneo la Kuchezea la AI
+                    AI Playground
                   </Button>
                 </Link>
                 <Button variant="outline" className="w-full justify-start" disabled={completedLessons === 0}>
                   <Github className="h-4 w-4 mr-2" />
-                  Hifadhi ya GitHub
+                  GitHub Repository
                 </Button>
                 <Button variant="outline" className="w-full justify-start">
                   <BookOpen className="h-4 w-4 mr-2" />
-                  Rasilimali za Kozi
+                  Course Resources
                 </Button>
               </CardContent>
             </Card>
@@ -357,20 +357,20 @@ const Course = () => {
             {/* Beginner Tips */}
             <Card>
               <CardHeader>
-                <CardTitle>💡 Vidokezo kwa Wanaoanza</CardTitle>
+                <CardTitle>💡 Beginner Tips</CardTitle>
               </CardHeader>
               <CardContent className="space-y-2 text-sm">
                 <p className="text-gray-600">
-                  • Anza polepole - hakuna haraka!
+                  • Start slowly - there's no rush!
                 </p>
                 <p className="text-gray-600">
-                  • Zoezi kila siku kidogo ni bora kuliko muda mrefu mara moja
+                  • Practice daily for short periods rather than long sessions
                 </p>
                 <p className="text-gray-600">
-                  • Usiogope kuuliza maswali katika vikao vya Google Meet
+                  • Don't hesitate to ask questions in Google Meet sessions
                 </p>
                 <p className="text-gray-600">
-                  • Tumia eneo la kuchezea kujaribu mambo mapya
+                  • Use the playground to experiment with new concepts
                 </p>
               </CardContent>
             </Card>
