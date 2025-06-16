@@ -40,18 +40,18 @@ const Index = () => {
   ];
 
   const curriculum = [
-    { week: 1, title: "Python Basics & Environment Setup", topics: ["Variables", "Data Types", "Farm Produce Tracker"] },
-    { week: 2, title: "Control Structures", topics: ["Conditionals", "Loops", "Functions"] },
-    { week: 3, title: "Data Structures", topics: ["Lists", "Dictionaries", "Error Handling"] },
-    { week: 4, title: "Git & GitHub", topics: ["Version Control", "Repositories", "Collaboration"] },
-    { week: 5, title: "Database Fundamentals", topics: ["SQLite", "SQL Queries", "Data Modeling"] },
-    { week: 6, title: "Python + SQL Integration", topics: ["Database Connections", "CRUD Operations"] },
-    { week: 7, title: "Advanced Python", topics: ["Modules", "Code Organization", "Best Practices"] },
-    { week: 8, title: "APIs & External Data", topics: ["REST APIs", "Weather Data", "Integration"] },
-    { week: 9, title: "Final Project Planning", topics: ["Mobile Money Logger", "Project Setup"] },
-    { week: 10, title: "Project Development I", topics: ["Implementation", "Testing", "Code Review"] },
-    { week: 11, title: "Project Development II", topics: ["Debugging", "Optimization", "Documentation"] },
-    { week: 12, title: "Project Presentation", topics: ["Demo", "Deployment", "Portfolio"] }
+    { week: 1, title: "Python Basics & Environment Setup", topics: ["Variables", "Data Types", "Farm Produce Tracker"], progress: 0 },
+    { week: 2, title: "Control Structures", topics: ["Conditionals", "Loops", "Functions"], progress: 0 },
+    { week: 3, title: "Data Structures", topics: ["Lists", "Dictionaries", "Error Handling"], progress: 0 },
+    { week: 4, title: "Git & GitHub", topics: ["Version Control", "Repositories", "Collaboration"], progress: 0 },
+    { week: 5, title: "Database Fundamentals", topics: ["SQLite", "SQL Queries", "Data Modeling"], progress: 0 },
+    { week: 6, title: "Python + SQL Integration", topics: ["Database Connections", "CRUD Operations"], progress: 0 },
+    { week: 7, title: "Advanced Python", topics: ["Modules", "Code Organization", "Best Practices"], progress: 0 },
+    { week: 8, title: "APIs & External Data", topics: ["REST APIs", "Weather Data", "Integration"], progress: 0 },
+    { week: 9, title: "Final Project Planning", topics: ["Mobile Money Logger", "Project Setup"], progress: 0 },
+    { week: 10, title: "Project Development I", topics: ["Implementation", "Testing", "Code Review"], progress: 0 },
+    { week: 11, title: "Project Development II", topics: ["Debugging", "Optimization", "Documentation"], progress: 0 },
+    { week: 12, title: "Project Presentation", topics: ["Demo", "Deployment", "Portfolio"], progress: 0 }
   ];
 
   return (
@@ -81,22 +81,22 @@ const Index = () => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
             <Badge className="mb-4 bg-green-100 text-green-800 border-green-200">
-              🚀 New Course Available
+              🚀 Mfumo Mpya wa Kujifunza
             </Badge>
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Master Software Development
-              <span className="block text-blue-600">with East African Context</span>
+              Jifunze Utengenezaji wa Programu
+              <span className="block text-blue-600">kwa Muktadha wa Afrika Mashariki</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Learn Python, SQL, and GitHub through practical projects like Farm Produce Tracking and Mobile Money Systems. 
-              Perfect for beginners in East Africa.
+              Jifunze Python, SQL, na GitHub kupitia miradi ya vitendo kama Ufuatiliaji wa Mazao ya Kilimo na Mifumo ya Fedha za Simu. 
+              Inafaa kwa wanaoanza Afrika Mashariki.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-                <a href="#pricing">Start Learning Today</a>
+                <a href="#pricing">Anza Kujifunza Leo</a>
               </Button>
               <Button size="lg" variant="outline">
-                <a href="#curriculum">View Curriculum</a>
+                <a href="#curriculum">Angalia Mtaala</a>
               </Button>
             </div>
           </div>
@@ -107,8 +107,8 @@ const Index = () => {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">What You'll Learn</h2>
-            <p className="text-xl text-gray-600">Comprehensive curriculum designed for African developers</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Utakachojifunza</h2>
+            <p className="text-xl text-gray-600">Mtaala mkamilifu uliobuniwa kwa watengenezaji wa Afrika</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
@@ -134,16 +134,19 @@ const Index = () => {
       <section id="curriculum" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">12-Week Curriculum</h2>
-            <p className="text-xl text-gray-600">Structured learning path from beginner to job-ready</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Mtaala wa Wiki 12</h2>
+            <p className="text-xl text-gray-600">Njia ya kujifunza iliyopangwa kutoka mwanzo hadi utayari wa kazi</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {curriculum.map((week) => (
               <Card key={week.week} className="hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <Badge variant="secondary">Week {week.week}</Badge>
-                    <Clock className="h-4 w-4 text-gray-500" />
+                    <Badge variant="secondary">Wiki {week.week}</Badge>
+                    <div className="flex items-center space-x-1">
+                      <Clock className="h-4 w-4 text-gray-500" />
+                      <span className="text-xs text-gray-500">{week.progress}%</span>
+                    </div>
                   </div>
                   <CardTitle className="text-lg">{week.title}</CardTitle>
                 </CardHeader>
@@ -167,51 +170,52 @@ const Index = () => {
       <section id="pricing" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Simple, Affordable Pricing</h2>
-            <p className="text-xl text-gray-600">Invest in your future with our comprehensive course</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Bei Rahisi na ya Uongozi</h2>
+            <p className="text-xl text-gray-600">Wekeza katika mustakabali wako na kozi yetu kamili</p>
           </div>
           <div className="max-w-lg mx-auto">
             <Card className="border-2 border-blue-200 shadow-xl">
               <CardHeader className="text-center pb-2">
                 <Badge className="w-fit mx-auto mb-4 bg-blue-100 text-blue-800">
-                  Most Popular
+                  Maarufu Zaidi
                 </Badge>
-                <CardTitle className="text-2xl">Basic Software Developer Course</CardTitle>
+                <CardTitle className="text-2xl">Kozi ya Msingi ya Utengenezaji wa Programu</CardTitle>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold text-blue-600">$99</span>
-                  <span className="text-gray-600">/12 weeks</span>
+                  <span className="text-4xl font-bold text-blue-600">TSh 280,000</span>
+                  <span className="text-gray-600">/wiki 12</span>
                 </div>
+                <p className="text-sm text-gray-500 mt-2">Karibu $120 USD</p>
               </CardHeader>
               <CardContent className="pt-6">
                 <ul className="space-y-4 mb-8">
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span>12 weeks of structured learning</span>
+                    <span>Wiki 12 za kujifunza iliyopangwa</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span>Weekly 30-min Google Meet sessions</span>
+                    <span>Vikao vya Google Meet vya dakika 30 kila wiki</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span>AI-powered coding playground</span>
+                    <span>Eneo la kuchezea programming lenye AI</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span>GitHub project tracking</span>
+                    <span>Ufuatiliaji wa miradi ya GitHub</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span>Certificate of completion</span>
+                    <span>Cheti cha ukamilishaji</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span>Lifetime access to materials</span>
+                    <span>Ufikiaji wa maisha yote kwa nyenzo</span>
                   </li>
                 </ul>
                 <Link to="/course">
                   <Button className="w-full bg-blue-600 hover:bg-blue-700 text-lg py-6">
-                    Enroll Now
+                    Jiandikishe Sasa
                   </Button>
                 </Link>
               </CardContent>
@@ -225,11 +229,11 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h3 className="text-2xl font-bold mb-4">ISN Academy</h3>
-            <p className="text-gray-400 mb-4">Empowering African developers with practical skills</p>
+            <p className="text-gray-400 mb-4">Kuwezesha watengenezaji wa Afrika kwa ujuzi wa vitendo</p>
             <div className="flex justify-center space-x-6">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">Terms</a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">Contact</a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">Faragha</a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">Masharti</a>
+              <a href="#" className="text-gray-400 hover:text-white transition-colors">Mawasiliano</a>
             </div>
           </div>
         </div>
