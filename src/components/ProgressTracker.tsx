@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, Clock, Lock } from "lucide-react";
+import { CheckCircle, Clock, Lock, RotateCcw } from "lucide-react";
 
 interface Exercise {
   id: string;
@@ -18,9 +18,10 @@ interface Exercise {
 interface ProgressTrackerProps {
   exercises: Exercise[];
   onExerciseComplete: (exerciseId: string) => void;
+  onExerciseRevisit?: (exerciseId: string) => void;
 }
 
-export const ProgressTracker = ({ exercises, onExerciseComplete }: ProgressTrackerProps) => {
+export const ProgressTracker = ({ exercises, onExerciseComplete, onExerciseRevisit }: ProgressTrackerProps) => {
   const [completedExercises, setCompletedExercises] = useState<string[]>([]);
   const [totalPoints, setTotalPoints] = useState(0);
 
@@ -52,6 +53,11 @@ export const ProgressTracker = ({ exercises, onExerciseComplete }: ProgressTrack
     }
   };
 
+  const handleRevisitExercise = (exercise: Exercise) => {
+    onExerciseRevisit?.(exercise.id);
+    console.log(`Revisiting exercise: ${exercise.title}`);
+  };
+
   const completionPercentage = (completedExercises.length / exercises.length) * 100;
 
   const getDifficultyColor = (difficulty: string) => {
@@ -68,10 +74,10 @@ export const ProgressTracker = ({ exercises, onExerciseComplete }: ProgressTrack
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Your Progress</CardTitle>
+          <CardTitle className="text-lg">Your Progress</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -86,7 +92,7 @@ export const ProgressTracker = ({ exercises, onExerciseComplete }: ProgressTrack
               <p className="text-xs text-gray-600">{completionPercentage.toFixed(0)}% complete</p>
             </div>
             <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-              <span className="font-semibold">Total Points Earned</span>
+              <span className="font-semibold text-sm">Total Points Earned</span>
               <Badge className="bg-blue-100 text-blue-800">{totalPoints} pts</Badge>
             </div>
           </div>
@@ -95,7 +101,7 @@ export const ProgressTracker = ({ exercises, onExerciseComplete }: ProgressTrack
 
       <Card>
         <CardHeader>
-          <CardTitle>Exercises</CardTitle>
+          <CardTitle className="text-lg">Exercises</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           {exercises.map((exercise, index) => {
@@ -105,23 +111,23 @@ export const ProgressTracker = ({ exercises, onExerciseComplete }: ProgressTrack
             return (
               <div 
                 key={exercise.id}
-                className={`p-4 border rounded-lg ${
+                className={`p-3 sm:p-4 border rounded-lg ${
                   isCompleted ? 'border-green-500 bg-green-50' : 
                   isLocked ? 'border-gray-300 bg-gray-50 opacity-60' : 
                   'border-blue-500 bg-blue-50'
                 }`}
               >
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-semibold">{exercise.title}</h4>
-                  <div className="flex items-center space-x-2">
-                    <Badge className={getDifficultyColor(exercise.difficulty)}>
+                <div className="flex flex-col space-y-2 sm:flex-row sm:items-center sm:justify-between sm:space-y-0 mb-2">
+                  <h4 className="font-semibold text-sm">{exercise.title}</h4>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Badge className={`text-xs ${getDifficultyColor(exercise.difficulty)}`}>
                       {exercise.difficulty}
                     </Badge>
-                    <Badge variant="secondary">{exercise.points} pts</Badge>
+                    <Badge variant="secondary" className="text-xs">{exercise.points} pts</Badge>
                   </div>
                 </div>
                 <p className="text-sm text-gray-600 mb-3">{exercise.description}</p>
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                   <div className="flex items-center space-x-2">
                     {isCompleted && <CheckCircle className="h-4 w-4 text-green-500" />}
                     {isLocked && <Lock className="h-4 w-4 text-gray-400" />}
@@ -130,14 +136,28 @@ export const ProgressTracker = ({ exercises, onExerciseComplete }: ProgressTrack
                       {isCompleted ? 'Completed' : isLocked ? 'Locked' : 'Available'}
                     </span>
                   </div>
-                  <Button 
-                    size="sm" 
-                    onClick={() => handleCompleteExercise(exercise)}
-                    disabled={isCompleted || isLocked}
-                    variant={isCompleted ? 'outline' : 'default'}
-                  >
-                    {isCompleted ? 'Completed' : isLocked ? 'Locked' : 'Start Exercise'}
-                  </Button>
+                  <div className="flex gap-2">
+                    {isCompleted && (
+                      <Button 
+                        size="sm" 
+                        variant="outline"
+                        onClick={() => handleRevisitExercise(exercise)}
+                        className="flex-1 sm:flex-none"
+                      >
+                        <RotateCcw className="h-3 w-3 mr-1" />
+                        Revisit
+                      </Button>
+                    )}
+                    <Button 
+                      size="sm" 
+                      onClick={() => handleCompleteExercise(exercise)}
+                      disabled={isCompleted || isLocked}
+                      variant={isCompleted ? 'outline' : 'default'}
+                      className="flex-1 sm:flex-none"
+                    >
+                      {isCompleted ? 'Completed' : isLocked ? 'Locked' : 'Start Exercise'}
+                    </Button>
+                  </div>
                 </div>
               </div>
             );

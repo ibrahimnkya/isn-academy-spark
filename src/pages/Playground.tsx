@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,8 +12,8 @@ const Playground = () => {
   const [code, setCode] = useState(`# Farm Produce Calculator
 # Calculate the total value of crops
 
-maize_price = 100  # KES per kg
-beans_price = 150  # KES per kg
+maize_price = 100  # TZS per kg
+beans_price = 150  # TZS per kg
 
 maize_quantity = 50  # kg
 beans_quantity = 30  # kg
@@ -23,9 +22,9 @@ total_maize_value = maize_price * maize_quantity
 total_beans_value = beans_price * beans_quantity
 total_value = total_maize_value + total_beans_value
 
-print(f"Maize value: {total_maize_value} KES")
-print(f"Beans value: {total_beans_value} KES")
-print(f"Total farm value: {total_value} KES")`);
+print(f"Maize value: {total_maize_value} TZS")
+print(f"Beans value: {total_beans_value} TZS")
+print(f"Total farm value: {total_value} TZS`);
 
   const [output, setOutput] = useState("");
   const [aiInsights, setAiInsights] = useState([
@@ -54,7 +53,7 @@ print(f"Total farm value: {total_value} KES")`);
       id: "math-1",
       title: "Basic Math Operations",
       difficulty: "beginner" as const,
-      description: "Calculate the total cost of 5 kg maize at 100 KES per kg using variables.",
+      description: "Calculate the total cost of 5 kg maize at 100 TZS per kg using variables.",
       completed: false,
       points: 15
     },
@@ -70,7 +69,7 @@ print(f"Total farm value: {total_value} KES")`);
       id: "conditions-1",
       title: "Making Decisions",
       difficulty: "beginner" as const,
-      description: "Write an if-else statement to check if crop price is above 100 KES.",
+      description: "Write an if-else statement to check if crop price is above 100 TZS.",
       completed: false,
       points: 20
     },
@@ -178,6 +177,43 @@ print(f"Total farm value: {total_value} KES")`);
     // Could trigger celebratory animation or unlock next exercise
   };
 
+  const handleExerciseRevisit = (exerciseId: string) => {
+    console.log(`Revisiting exercise ${exerciseId}`);
+    // Load specific exercise code template
+    const exerciseTemplates: { [key: string]: string } = {
+      "variables-1": `# Exercise: Create Your First Variables
+# Create variables for your name, age, and favorite crop
+
+name = "Your Name"
+age = 25
+favorite_crop = "Maize"
+
+print(f"My name is {name}")
+print(f"I am {age} years old")
+print(f"My favorite crop is {favorite_crop}")`,
+      "math-1": `# Exercise: Basic Math Operations
+# Calculate the total cost of 5 kg maize at 100 TZS per kg
+
+maize_price = 100  # TZS per kg
+quantity = 5  # kg
+total_cost = maize_price * quantity
+
+print(f"Total cost: {total_cost} TZS")`,
+      "strings-1": `# Exercise: Working with Text
+# Create a greeting message using f-strings
+
+farmer_name = "John"
+farm_location = "Mwanza"
+
+greeting = f"Hello {farmer_name} from {farm_location}!"
+print(greeting)`
+    };
+    
+    if (exerciseTemplates[exerciseId]) {
+      setCode(exerciseTemplates[exerciseId]);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navigation */}
@@ -187,42 +223,44 @@ print(f"Total farm value: {total_value} KES")`);
             <div className="flex items-center space-x-4">
               <Link to="/course" className="flex items-center space-x-2 text-gray-600 hover:text-blue-600">
                 <ArrowLeft className="h-4 w-4" />
-                <span>Back to Course</span>
+                <span className="hidden sm:inline">Back to Course</span>
+                <span className="sm:hidden">Back</span>
               </Link>
-              <h1 className="text-2xl font-bold text-blue-600">AI Coding Playground</h1>
+              <h1 className="text-xl sm:text-2xl font-bold text-blue-600">AI Coding Playground</h1>
             </div>
-            <div className="flex items-center space-x-4">
-              <Badge className="bg-green-100 text-green-800">AI Powered</Badge>
-              <Button variant="outline">Save Code</Button>
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <Badge className="bg-green-100 text-green-800 text-xs">AI Powered</Badge>
+              <Button variant="outline" size="sm" className="hidden sm:inline-flex">Save Code</Button>
             </div>
           </div>
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid lg:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+        <div className="grid lg:grid-cols-4 gap-4 lg:gap-8">
           {/* Sidebar - Progress & Exercises */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 order-2 lg:order-1">
             <ProgressTracker 
               exercises={exercises} 
               onExerciseComplete={handleExerciseComplete}
+              onExerciseRevisit={handleExerciseRevisit}
             />
           </div>
 
           {/* Main Content */}
-          <div className="lg:col-span-3">
-            <Tabs defaultValue="code" className="space-y-6">
+          <div className="lg:col-span-3 order-1 lg:order-2">
+            <Tabs defaultValue="code" className="space-y-4 sm:space-y-6">
               <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="code">Code Editor</TabsTrigger>
-                <TabsTrigger value="output">Output</TabsTrigger>
-                <TabsTrigger value="insights">AI Insights</TabsTrigger>
+                <TabsTrigger value="code" className="text-xs sm:text-sm">Code Editor</TabsTrigger>
+                <TabsTrigger value="output" className="text-xs sm:text-sm">Output</TabsTrigger>
+                <TabsTrigger value="insights" className="text-xs sm:text-sm">AI Insights</TabsTrigger>
               </TabsList>
 
               <TabsContent value="code">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Python Code Editor</CardTitle>
-                    <CardDescription>Write and test your Python code with real-time AI feedback</CardDescription>
+                    <CardTitle className="text-lg sm:text-xl">Python Code Editor</CardTitle>
+                    <CardDescription className="text-sm">Write and test your Python code with real-time AI feedback</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <CodeEditor
@@ -237,13 +275,13 @@ print(f"Total farm value: {total_value} KES")`);
               <TabsContent value="output">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Code Output</CardTitle>
-                    <CardDescription>See the results of your code execution</CardDescription>
+                    <CardTitle className="text-lg sm:text-xl">Code Output</CardTitle>
+                    <CardDescription className="text-sm">See the results of your code execution</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="bg-black text-green-400 p-4 rounded-lg font-mono text-sm min-h-[400px]">
+                    <div className="bg-black text-green-400 p-4 rounded-lg font-mono text-sm min-h-[300px] sm:min-h-[400px] overflow-x-auto">
                       {output ? (
-                        <pre>{output}</pre>
+                        <pre className="whitespace-pre-wrap break-words">{output}</pre>
                       ) : (
                         <span className="text-gray-500">Click "Run Code" to see output...</span>
                       )}
@@ -255,11 +293,11 @@ print(f"Total farm value: {total_value} KES")`);
               <TabsContent value="insights">
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
+                    <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
                       <Lightbulb className="h-5 w-5 text-yellow-500" />
                       <span>AI-Powered Insights</span>
                     </CardTitle>
-                    <CardDescription>
+                    <CardDescription className="text-sm">
                       Get real-time suggestions and improvements for your code
                     </CardDescription>
                   </CardHeader>
@@ -277,8 +315,8 @@ print(f"Total farm value: {total_value} KES")`);
                             <Lightbulb className="h-5 w-5 text-blue-500" />
                           )}
                         </div>
-                        <div className="flex-grow">
-                          <p className="text-sm">{insight.message}</p>
+                        <div className="flex-grow min-w-0">
+                          <p className="text-sm break-words">{insight.message}</p>
                           <Badge 
                             variant="secondary" 
                             className={`mt-2 text-xs ${
@@ -298,22 +336,22 @@ print(f"Total farm value: {total_value} KES")`);
             </Tabs>
 
             {/* Quick Actions */}
-            <Card className="mt-6">
+            <Card className="mt-4 sm:mt-6">
               <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
+                <CardTitle className="text-lg sm:text-xl">Quick Actions</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <Button variant="outline" className="w-full">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                  <Button variant="outline" className="w-full text-xs sm:text-sm">
                     Load Template
                   </Button>
-                  <Button variant="outline" className="w-full">
+                  <Button variant="outline" className="w-full text-xs sm:text-sm">
                     Share Code
                   </Button>
-                  <Button variant="outline" className="w-full">
+                  <Button variant="outline" className="w-full text-xs sm:text-sm">
                     Export Project
                   </Button>
-                  <Button variant="outline" className="w-full">
+                  <Button variant="outline" className="w-full text-xs sm:text-sm">
                     Get Help
                   </Button>
                 </div>
