@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { PlayCircle, BookOpen, Code, Calendar, Github, ArrowLeft, CheckCircle, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
+import { CourseMaterials } from "@/components/CourseMaterials";
 
 const Course = () => {
   // For complete beginners, start with 0% progress
@@ -22,9 +22,29 @@ const Course = () => {
       videoUrl: "https://www.youtube.com/embed/kqtD5dpn9C8",
       description: "Learn Python fundamentals and set up your development environment",
       materials: [
-        "Python Installation Guide",
-        "VS Code Setup Instructions", 
-        "Farm Produce Tracker Starter Project"
+        {
+          id: "w1-pdf1",
+          title: "Python Installation Guide",
+          type: "pdf" as const,
+          url: "/materials/python-installation-guide.pdf",
+          description: "Step-by-step guide to install Python on Windows, Mac, and Linux",
+          size: "2.5 MB"
+        },
+        {
+          id: "w1-pdf2", 
+          title: "VS Code Setup Instructions",
+          type: "pdf" as const,
+          url: "/materials/vscode-setup.pdf",
+          description: "Configure VS Code for Python development",
+          size: "1.8 MB"
+        },
+        {
+          id: "w1-link1",
+          title: "Python Official Tutorial",
+          type: "link" as const,
+          url: "https://docs.python.org/3/tutorial/",
+          description: "Official Python tutorial for beginners"
+        }
       ],
       isCompleted: false,
       progress: 0
@@ -36,9 +56,22 @@ const Course = () => {
       videoUrl: "https://www.youtube.com/embed/PqFKRqpHrjw",
       description: "Master conditionals, loops, and basic functions",
       materials: [
-        "Control Flow Exercises",
-        "Debugging Guide",
-        "Enhanced Farm Tracker Project"
+        {
+          id: "w2-pdf1",
+          title: "Control Flow Exercises",
+          type: "pdf" as const,
+          url: "/materials/control-flow-exercises.pdf",
+          description: "Practice exercises for if-else statements and loops",
+          size: "3.2 MB"
+        },
+        {
+          id: "w2-pdf2",
+          title: "Debugging Guide",
+          type: "pdf" as const,
+          url: "/materials/debugging-guide.pdf",
+          description: "Common Python errors and how to fix them",
+          size: "2.1 MB"
+        }
       ],
       isCompleted: false,
       progress: 0
@@ -50,9 +83,22 @@ const Course = () => {
       videoUrl: "https://www.youtube.com/embed/W8KRzm-HUcc",
       description: "Work with lists, dictionaries, and error handling",
       materials: [
-        "Data Structure Examples",
-        "Error Handling Best Practices",
-        "Price Calculator Project"
+        {
+          id: "w3-pdf1",
+          title: "Data Structure Examples",
+          type: "pdf" as const,
+          url: "/materials/data-structure-examples.pdf",
+          description: "Examples of common data structures",
+          size: "1.5 MB"
+        },
+        {
+          id: "w3-pdf2",
+          title: "Error Handling Best Practices",
+          type: "pdf" as const,
+          url: "/materials/error-handling-best-practices.pdf",
+          description: "Best practices for handling errors in Python",
+          size: "1.2 MB"
+        }
       ],
       isCompleted: false,
       progress: 0
@@ -64,9 +110,22 @@ const Course = () => {
       videoUrl: "https://www.youtube.com/embed/RGOj5yH7evk",
       description: "Version control and collaborative development",
       materials: [
-        "Git Commands Cheat Sheet",
-        "GitHub Workflow Guide",
-        "Repository Setup System"
+        {
+          id: "w4-pdf1",
+          title: "Git Commands Cheat Sheet",
+          type: "pdf" as const,
+          url: "/materials/git-commands-cheat-sheet.pdf",
+          description: "A comprehensive guide to Git commands",
+          size: "1.0 MB"
+        },
+        {
+          id: "w4-pdf2",
+          title: "GitHub Workflow Guide",
+          type: "pdf" as const,
+          url: "/materials/github-workflow-guide.pdf",
+          description: "Best practices for using GitHub",
+          size: "0.8 MB"
+        }
       ],
       isCompleted: false,
       progress: 0
@@ -142,8 +201,9 @@ const Course = () => {
           {/* Main Content */}
           <div className="lg:col-span-2">
             <Tabs defaultValue="lessons" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="lessons">Lessons</TabsTrigger>
+                <TabsTrigger value="materials">Materials</TabsTrigger>
                 <TabsTrigger value="exercises">Exercises</TabsTrigger>
                 <TabsTrigger value="projects">Projects</TabsTrigger>
               </TabsList>
@@ -207,22 +267,21 @@ const Course = () => {
                             allowFullScreen
                           />
                         </div>
-                        <div>
-                          <h4 className="font-semibold mb-2">Course Materials:</h4>
-                          <ul className="space-y-1">
-                            {week.materials.map((material, index) => (
-                              <li key={index} className="flex items-center space-x-2">
-                                <BookOpen className="h-4 w-4 text-gray-500" />
-                                <a href="#" className="text-blue-600 hover:underline text-sm">
-                                  {material}
-                                </a>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
                       </CardContent>
                     )}
                   </Card>
+                ))}
+              </TabsContent>
+
+              <TabsContent value="materials" className="space-y-6">
+                {weeks.map((week) => (
+                  week.status === 'available' && week.materials && (
+                    <CourseMaterials 
+                      key={week.week}
+                      weekNumber={week.week}
+                      materials={week.materials}
+                    />
+                  )
                 ))}
               </TabsContent>
 

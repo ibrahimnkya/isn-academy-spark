@@ -2,11 +2,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Play, ArrowLeft, Lightbulb, CheckCircle, AlertCircle } from "lucide-react";
+import { ArrowLeft, Lightbulb, CheckCircle, AlertCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { CodeEditor } from "@/components/CodeEditor";
+import { ProgressTracker } from "@/components/ProgressTracker";
 
 const Playground = () => {
   const [code, setCode] = useState(`# Farm Produce Calculator
@@ -40,11 +41,115 @@ print(f"Total farm value: {total_value} KES")`);
     }
   ]);
 
+  const exercises = [
+    {
+      id: "variables-1",
+      title: "Create Your First Variables",
+      difficulty: "beginner" as const,
+      description: "Create variables for your name, age, and favorite crop. Print them using print().",
+      completed: false,
+      points: 10
+    },
+    {
+      id: "math-1",
+      title: "Basic Math Operations",
+      difficulty: "beginner" as const,
+      description: "Calculate the total cost of 5 kg maize at 100 KES per kg using variables.",
+      completed: false,
+      points: 15
+    },
+    {
+      id: "strings-1",
+      title: "Working with Text",
+      difficulty: "beginner" as const,
+      description: "Create a greeting message using string formatting (f-strings).",
+      completed: false,
+      points: 15
+    },
+    {
+      id: "conditions-1",
+      title: "Making Decisions",
+      difficulty: "beginner" as const,
+      description: "Write an if-else statement to check if crop price is above 100 KES.",
+      completed: false,
+      points: 20
+    },
+    {
+      id: "loops-1",
+      title: "Repeating Actions",
+      difficulty: "intermediate" as const,
+      description: "Use a for loop to calculate total value for multiple crops.",
+      completed: false,
+      points: 25
+    }
+  ];
+
   const runCode = () => {
-    // Simulate code execution
-    setOutput(`Maize value: 5000 KES
-Beans value: 4500 KES
-Total farm value: 9500 KES`);
+    try {
+      // Simple Python-like execution simulation
+      const lines = code.split('\n');
+      let result = "";
+      let variables: { [key: string]: any } = {};
+      
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (trimmed.startsWith('#') || !trimmed) continue;
+        
+        // Simple variable assignment
+        if (trimmed.includes(' = ') && !trimmed.startsWith('print')) {
+          const [varName, value] = trimmed.split(' = ');
+          const cleanVarName = varName.trim();
+          let cleanValue = value.trim();
+          
+          // Remove comments
+          if (cleanValue.includes('#')) {
+            cleanValue = cleanValue.split('#')[0].trim();
+          }
+          
+          // Evaluate simple expressions
+          if (cleanValue.includes('*') || cleanValue.includes('+')) {
+            try {
+              // Replace variable names with their values
+              let expression = cleanValue;
+              Object.keys(variables).forEach(key => {
+                expression = expression.replace(new RegExp(`\\b${key}\\b`, 'g'), variables[key]);
+              });
+              variables[cleanVarName] = eval(expression);
+            } catch {
+              variables[cleanVarName] = cleanValue;
+            }
+          } else {
+            variables[cleanVarName] = isNaN(Number(cleanValue)) ? cleanValue.replace(/"/g, '') : Number(cleanValue);
+          }
+        }
+        
+        // Simple print statement
+        if (trimmed.startsWith('print(')) {
+          let printContent = trimmed.match(/print\((.*)\)/)?.[1] || '';
+          
+          // Handle f-strings
+          if (printContent.startsWith('f"') && printContent.endsWith('"')) {
+            let fString = printContent.slice(2, -1);
+            Object.keys(variables).forEach(key => {
+              fString = fString.replace(`{${key}}`, variables[key]);
+            });
+            result += fString + '\n';
+          } else {
+            // Simple string or variable
+            printContent = printContent.replace(/"/g, '');
+            if (variables[printContent]) {
+              result += variables[printContent] + '\n';
+            } else {
+              result += printContent + '\n';
+            }
+          }
+        }
+      }
+      
+      setOutput(result || "Code executed successfully!");
+    } catch (error) {
+      setOutput(`Error: ${error}`);
+    }
     
     // Simulate AI analysis
     setTimeout(() => {
@@ -68,32 +173,10 @@ Total farm value: 9500 KES`);
     }, 1500);
   };
 
-  const exercises = [
-    {
-      title: "Basic Variables",
-      description: "Create variables for different crop types and prices",
-      difficulty: "Beginner",
-      status: "completed"
-    },
-    {
-      title: "Control Structures",
-      description: "Use if-else statements to categorize crops",
-      difficulty: "Beginner", 
-      status: "current"
-    },
-    {
-      title: "Functions",
-      description: "Create reusable functions for calculations",
-      difficulty: "Intermediate",
-      status: "locked"
-    },
-    {
-      title: "Data Structures",
-      description: "Work with lists and dictionaries",
-      difficulty: "Intermediate",
-      status: "locked"
-    }
-  ];
+  const handleExerciseComplete = (exerciseId: string) => {
+    console.log(`Exercise ${exerciseId} completed!`);
+    // Could trigger celebratory animation or unlock next exercise
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -118,43 +201,12 @@ Total farm value: 9500 KES`);
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid lg:grid-cols-4 gap-8">
-          {/* Sidebar - Exercises */}
+          {/* Sidebar - Progress & Exercises */}
           <div className="lg:col-span-1">
-            <Card>
-              <CardHeader>
-                <CardTitle>Practice Exercises</CardTitle>
-                <CardDescription>Build your skills step by step</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {exercises.map((exercise, index) => (
-                  <div 
-                    key={index}
-                    className={`p-3 border rounded-lg cursor-pointer transition-colors ${
-                      exercise.status === 'current' ? 'border-blue-500 bg-blue-50' : ''
-                    } ${exercise.status === 'locked' ? 'opacity-50' : 'hover:bg-gray-50'}`}
-                  >
-                    <div className="flex items-center justify-between mb-1">
-                      <h4 className="font-semibold text-sm">{exercise.title}</h4>
-                      {exercise.status === 'completed' && (
-                        <CheckCircle className="h-4 w-4 text-green-500" />
-                      )}
-                    </div>
-                    <p className="text-xs text-gray-600 mb-2">{exercise.description}</p>
-                    <div className="flex items-center justify-between">
-                      <Badge 
-                        variant="secondary" 
-                        className={`text-xs ${
-                          exercise.difficulty === 'Beginner' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                        }`}
-                      >
-                        {exercise.difficulty}
-                      </Badge>
-                      <span className="text-xs text-gray-500 capitalize">{exercise.status}</span>
-                    </div>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
+            <ProgressTracker 
+              exercises={exercises} 
+              onExerciseComplete={handleExerciseComplete}
+            />
           </div>
 
           {/* Main Content */}
@@ -169,23 +221,14 @@ Total farm value: 9500 KES`);
               <TabsContent value="code">
                 <Card>
                   <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <CardTitle>Python Code Editor</CardTitle>
-                        <CardDescription>Write and test your Python code with real-time AI feedback</CardDescription>
-                      </div>
-                      <Button onClick={runCode} className="bg-green-600 hover:bg-green-700">
-                        <Play className="h-4 w-4 mr-2" />
-                        Run Code
-                      </Button>
-                    </div>
+                    <CardTitle>Python Code Editor</CardTitle>
+                    <CardDescription>Write and test your Python code with real-time AI feedback</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <Textarea
-                      value={code}
-                      onChange={(e) => setCode(e.target.value)}
-                      className="min-h-[400px] font-mono text-sm"
-                      placeholder="Write your Python code here..."
+                    <CodeEditor
+                      initialCode={code}
+                      onCodeChange={setCode}
+                      onRun={runCode}
                     />
                   </CardContent>
                 </Card>
